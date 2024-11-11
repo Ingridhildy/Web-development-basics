@@ -1,0 +1,164 @@
+//index.html
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Милий нагадувач</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <h1>Милий нагадувач</h1>
+        <div class="pet-selector">
+            <label for="pet">Вибери вихованця:</label>
+            <select id="pet">
+                <option value="котик">Котик 🐱</option>
+                <option value="песик">Песик 🐶</option>
+                <option value="пташка">Пташка 🐦</option>
+            </select>
+        </div>
+        <div class="reminder-form">
+            <label for="event">Введи нагадування:</label>
+            <input type="text" id="event" placeholder="Наприклад, полити квіти">
+            <button id="set-reminder">Створити нагадування</button>
+        </div>
+        <div class="reminders-list">
+            <h2>Список нагадувань:</h2>
+            <ul id="reminder-list"></ul>
+        </div>
+    </div>
+
+    <!-- Підключення Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+//Створюємо форму з полем для вибору вихованця та введення нагадування
+
+
+//style.css
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #fdf6e4;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.app-container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.pet-selector,
+.reminder-form {
+    margin-bottom: 20px;
+}
+
+#event {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #ffcc99;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #ff9966;
+}
+
+.reminders-list {
+    text-align: left;
+}
+
+#reminder-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#reminder-list li {
+    background-color: #fffae5;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+//Стилі для додатку, щоб зробити його милим і приємним для користувача
+
+
+//app.js
+
+// Ініціалізація Firebase
+const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    databaseURL: "YOUR_DATABASE_URL",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_STORAGE_BUCKET",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_APP_ID"
+};
+
+const app = firebase.initializeApp(firebaseConfig);
+const database = firebase.database(app);
+
+// Елементи DOM
+const petSelect = document.getElementById('pet');
+const eventInput = document.getElementById('event');
+const setReminderButton = document.getElementById('set-reminder');
+const reminderList = document.getElementById('reminder-list');
+
+// Функція додавання нагадування
+setReminderButton.addEventListener('click', () => {
+    const pet = petSelect.value;
+    const eventText = eventInput.value.trim();
+    
+    if (eventText) {
+        const reminder = {
+            pet,
+            eventText,
+            timestamp: new Date().toISOString()
+        };
+        
+        // Збереження в Firebase
+        firebase.database().ref('reminders').push(reminder);
+        
+        eventInput.value = '';
+    }
+});
+
+// Отримання нагадувань із Firebase
+firebase.database().ref('reminders').on('value', (snapshot) => {
+    reminderList.innerHTML = '';
+    snapshot.forEach((childSnapshot) => {
+        const reminder = childSnapshot.val();
+        const listItem = document.createElement('li');
+        listItem.textContent = `${reminder.pet}: ${reminder.eventText}`;
+        reminderList.appendChild(listItem);
+    });
+});
+Налаштовуємо Firebase, додаємо нові нагадування та отримуємо список нагадувань у реальному часі
