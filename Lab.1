@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сторінка кафе</title>
+    <style>
+        .highlight {
+            background-color: #ffeb3b;
+            color: #333;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>Ласкаво просимо до нашого кафе!</h2>
+    <p id="description">У нас ви можете насолодитися смачною кавою та свіжими десертами.</p>
+    <button id="menuButton">Показати меню</button>
+    <ul class="menu hidden">
+        <li>Капучіно</li>
+        <li>Лате</li>
+        <li>Еспресо</li>
+        <li>Чізкейк</li>
+    </ul>
+    <p class="hover-text">Наведіть на цей текст мишкою, щоб змінити його стиль.</p>
+
+    <script>
+        // Пошук елементів за різними методами
+        const menuButton = document.getElementById("menuButton");
+        const menuItems = document.querySelector(".menu");
+        const description = document.getElementsByTagName("p")[0];
+        const hoverText = document.querySelector(".hover-text");
+
+        // Додавання обробника події click до кнопки
+        menuButton.addEventListener("click", function() {
+            if (menuItems.classList.contains("hidden")) {
+                menuItems.classList.remove("hidden");
+                menuButton.textContent = "Сховати меню";
+            } else {
+                menuItems.classList.add("hidden");
+                menuButton.textContent = "Показати меню";
+            }
+        });
+
+        // Додавання обробника події mouseover до абзацу
+        hoverText.addEventListener("mouseover", function() {
+            hoverText.classList.add("highlight");
+        });
+
+        // Додавання обробника події mouseout для зняття стилю
+        hoverText.addEventListener("mouseout", function() {
+            hoverText.classList.remove("highlight");
+        });
+
+        // Додавання обробника події keydown для зміни опису
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                description.textContent = "Дякуємо, що відвідали наше кафе!";
+            }
+        });
+    </script>
+</body>
+</html>
+/* 
+Пояснення:
+  Пошук елементів за допомогою різних методів: getElementById, querySelector, getElementsByTagName.
+  Обробники подій: click для кнопки, mouseover та mouseout для тексту, keydown для дії при натисканні клавіші Enter.
+  Дії: показ/приховування меню, зміна тексту та стилів.
+*/
