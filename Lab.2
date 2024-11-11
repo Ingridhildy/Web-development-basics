@@ -1,0 +1,130 @@
+//manifest.json
+
+{
+  "manifest_version": 3,
+  "name": "Котик-порадник",
+  "version": "1.0",
+  "description": "Миле розширення з котиком, який дає поради або передбачення на день.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    }
+  },
+  "permissions": []
+}
+
+/* manifest_version: Версія маніфесту (використовується 3).
+name, version, description: Інформація про розширення.
+action: Вказує на спливаюче вікно popup.html та значок розширення.
+permissions: Дозволи (у цьому прикладі жодних специфічних дозволів не використовується) */
+
+
+//popup.html
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Котик-порадник</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Котик-порадник</h1>
+        <img src="cute-cat.png" alt="Миленький котик" class="cat-image">
+        <p id="advice">Натисни кнопку, щоб отримати пораду чи передбачення!</p>
+        <button id="advice-btn">Отримати пораду</button>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>
+
+
+//popup.js
+
+// Массив випадкових порад або передбачень
+const advices = [
+    "Сьогодні гарний день для чогось нового!",
+    "Пий більше води і залишайся здоровим!",
+    "Зроби щось добре для іншої людини.",
+    "Пам’ятай, що ти чудовий/чудова!",
+    "Не забувай відпочивати — це теж важливо.",
+    "Удача на твоєму боці сьогодні!",
+    "Посмішка відкриє перед тобою більше дверей, ніж ключі.",
+    "Прислухайся до свого серця, воно знає відповідь.",
+    "Сьогодні ідеальний день для прогулянки на свіжому повітрі."
+];
+
+function getRandomAdvice() {
+    const randomIndex = Math.floor(Math.random() * advices.length);
+    return advices[randomIndex];
+}
+
+// Оновлюємо пораду при натисканні кнопки
+document.getElementById('advice-btn').addEventListener('click', function() {
+    const adviceElement = document.getElementById('advice');
+    adviceElement.textContent = getRandomAdvice();
+});
+//Функціонал генерує випадкову пораду з масиву advices і оновлює тект на сторінці при натисканні кнопки
+
+
+//styles.js
+
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    margin: 0;
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+    background-color: #fefefe;
+    color: #333;
+}
+
+.container {
+    background-color: #fffae5;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.cat-image {
+    width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 50%;
+    border: 2px solid #ffcc99;
+}
+
+#advice {
+    font-size: 14px;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+#advice-btn {
+    padding: 8px 15px;
+    font-size: 14px;
+    background-color: #ffcc99;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#advice-btn:hover {
+    background-color: #ff9966;
+}
+
+//Милий і теплий дизайн з пастельними кольорами, 
+закругленим зображенням котика і кнопкою з приємним анімаційним ефектом
