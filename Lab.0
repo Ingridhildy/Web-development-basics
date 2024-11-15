@@ -1,0 +1,131 @@
+// task 1 "Hello world!"
+
+// show an alert
+<!DOCTYPE HTML>
+<html>
+
+<body>
+
+  <p>Before the script...</p>
+
+  <script>
+    alert( 'Hello, world! I'm Java Script, I'm glad that you're going to learn how to use me :) ' );
+  </script>
+
+  <p>...After the script.</p>
+
+</body>
+
+</html>
+
+//Show an alert with an external script
+// alert.html
+<!DOCTYPE html>
+<html>
+
+<body>
+
+  <script src="alert.js"></script>
+
+</body>
+
+</html>
+
+//alert.js
+alert("I'm JavaScript! I'm glad that you're going to learn how to use me :) ");
+
+//task.2 Working with variables
+
+let admin, name; // can declare two variables at once
+
+name = "Helga";
+
+admin = name;
+
+alert( admin ); // "Helga"
+
+//Giving the right name
+let ourPlanetName = "Earth";
+
+//The name of the current visitor
+let currentUserName = "Helga";
+
+//Uppercase const
+const birthday = '15.09.2005';
+const age = someCode(birthday);
+
+//Data types
+let name = "Ivan";
+
+alert( `hello ${1}` ); // hello 1
+
+alert( `hello ${"name"}` ); // hello name
+
+alert( `hello ${name}` ); // hello Ivan
+
+//Interaction: alert
+//page.html
+<!DOCTYPE html>
+<html>
+<body>
+
+  <script>
+    'use strict';
+
+    let name = prompt("What is your name?", "");
+    alert(name);
+  </script>
+
+</body>
+</html>
+
+//code.ja
+let name = prompt("Whacha name?", "");
+alert(name);
+
+//The postfix and prefix forms
+let a = 6, b = 4;
+
+let c = ++a;  
+let d = b++; 
+//Output: a=7, b=5, c=7, d=4
+
+//Assignment result
+let a = 9;
+
+let x = 1 + (a *= 2);
+//Output: a=18, x=19
+
+//Type conversions
+"" + 4 + 0
+"" - 1 + 0
+true + false
+3 / "3"
+"8" * "3"
+4 + 2 + "px"
+"$" + 0 + 5
+"4" - 1
+"4px" - 2
+"  -9  " + 6
+"  -9  " - 7
+null + 1
+undefined + 1
+" \t \n" - 2
+//Output: "40", -1, 1, 1, 24, "6px", "$05", 3, NaN, " -9 6", -16, 1, NaN, NaN
+
+//Fix the addition
+let a = prompt("First number?", 6);
+let b = prompt("Second number?", 4);
+
+alert(Number(a) + Number(b)); // 3
+//Output: 3
+
+//Comparisons
+8 > 3 //true
+"apple" > "pineapple"  //false
+"1" > "32"  //true
+undefined == null  //true
+undefined === null  //false
+null == "\n0\n"   //false
+null === +"\n0\n"   //false
+
